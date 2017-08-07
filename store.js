@@ -16,7 +16,27 @@ ListStore = {
     return items
   },
 
-  loadItems: function() {},
-  addItem: function(itemDescription) {},
+  loadItems: function() {
+    var loadRequest = $.ajax({
+      type: 'GET',
+      url: "https://listalous.herokuapp.com/lists/stevechendc/"
+    })
+    loadRequest.done(function(dataFromServer) {
+      items= dataFromServer.items
+      notifyComponents()
+    })
+  },
+  addItem: function(itemDescription) {
+    var creationRequest = $.ajax({
+      type: 'POST',
+      url: "http://listalous.herokuapp.com/lists/stevechendc/items",
+      data: { description: itemDescription, completed: false }
+    })
+
+    creationRequest.done(function(itemDataFromServer) {
+      items.push(itemDataFromServer)
+      notifyComponents()
+    })
+  },
   toggleCompleteness: function(itemId) {}
 }
