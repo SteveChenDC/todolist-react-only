@@ -41,14 +41,29 @@ ListStore = {
   toggleCompleteness: function(itemId) {
     var item = findItemById(itemId)
     var currentCompletedValue = item.completed
-
     var updateRequest = $.ajax({
       type: 'PUT',
       url: "https://listalous.herokuapp.com/lists/stevechendc/items/" + itemId,
       data: { completed: !currentCompletedValue }
     })
+
     updateRequest.done(function(itemData) {
       item.completed = itemData.completed
+      notifyComponents()
+    })
+  },
+
+  removeItem: function(itemId) {
+    var item = findItemById(itemId)
+    var currentDeletedValue = item.deleted
+    var deleteRequest = $.ajax({
+      type: 'DELETE',
+      url: "https://listalous.herokuapp.com/lists/stevechendc/items/" + itemId,
+      data: { deleted: !currentDeletedValue }
+    })
+
+    deleteRequest.done(function(itemData) {
+      item.deleted = itemData.deleted
       notifyComponents()
     })
   }

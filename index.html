@@ -44,14 +44,18 @@
           <li className={itemClass}>
             <span className='complete-button' onClick={this.handleComplete}>{'\u2714'}</span>
             <div className='description'>{this.props.description}</div>
-            <span className='delete-button'>{'\u2718'}</span>
+            <span className='delete-button' onClick={this.handleDelete}>{'\u2718'}</span>
           </li>
         )
       },
 
       handleComplete: function() {
         ListStore.toggleCompleteness(this.props.id)
-      }
+      },
+
+      handleDelete: function() {
+        ListStore.removeItem(this.props.id)
+      },
     })
 
     var List = React.createClass({
