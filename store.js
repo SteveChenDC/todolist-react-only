@@ -64,6 +64,7 @@ ListStore = {
 
     deleteRequest.done(function(itemData) {
       item.deleted = itemData.deleted
+      location.reload();
       notifyComponents()
     })
   }
